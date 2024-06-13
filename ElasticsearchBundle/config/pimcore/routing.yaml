@@ -1,0 +1,3 @@
+bundles_elasticsearch_homepage:
+    path:     /elasticsearch
+    defaults: { _controller: Bundles\ElasticsearchBundle\Controller\DefaultController::indexAction }

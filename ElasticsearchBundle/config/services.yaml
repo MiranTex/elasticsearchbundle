@@ -1,0 +1,46 @@
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        # automatically injects dependencies in your services
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
+        # this means you cannot fetch services directly from the container via $container->get()
+        # if you need to do this, you can override this setting on individual services
+        public: false
+
+    # controllers are imported separately to make sure they're public
+    # and have a tag that allows actions to type-hint services
+    
+
+    Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
+
+    Bundles\ElasticsearchBundle\Controller\:
+        resource: '../src/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    Bundles\ElasticsearchBundle\Class\:
+        resource: '../src/Class'
+
+    Bundles\ElasticsearchBundle\Interface\:
+        resource: '../src/Interface/*'
+
+    Bundles\ElasticsearchBundle\Trait\:
+        resource: '../src/Trait/*'
+
+    Bundles\ElasticsearchBundle\Command\:
+        resource: '../src/Command/*'
+        tags: [ 'console.command' ]
+
+    Bundles\ElasticsearchBundle\Helpers\:
+        resource: '../src/Helpers/*'
+        public: true
+        tags: [ 'helper.service_arguments' ]
+
+# add more services, or override services that need manual wiring
+#    Bundles\ElasticsearchBundle\ExampleClass:
+#        arguments:
+#            - "@service_id"
+#            - "plain_value"
+#            - "%parameter%"
